@@ -19,36 +19,36 @@ public abstract class CRUDService<E,D,ID extends Number> {
         return jpaRepository
                 .findAll()
                 .stream()
-                .map(mapper::mapToDto)
+                .map(mapper::toDto)
                 .toList();
     }
 
     @Transactional
-    public D create(D dto) {
-        return Optional.of(dto)
-                .map(mapper::mapToEntity)
+    public D create(D source) {
+        return Optional.of(source)
+                .map(mapper::toEntity)
                 .map(jpaRepository::save)
-                .map(mapper::mapToDto)
+                .map(mapper::toDto)
                 .orElseThrow();
     }
 
     public D get(ID id) {
         return jpaRepository
                 .findById(id)
-                .map(mapper::mapToDto)
+                .map(mapper::toDto)
                 .orElseThrow(() -> new EntityNotFoundException(id));
     }
 
     @Transactional
-    public D update(ID id, D dtoSource) {
+    public D update(ID id, D source) {
         return jpaRepository
                 .findById(id)
                 .map(entityToUpdate -> {
-                    mapper.updateEntity(dtoSource, entityToUpdate);
+                    mapper.updateEntity(source, entityToUpdate);
                     return entityToUpdate;
                 })
                 .map(jpaRepository::saveAndFlush)
-                .map(mapper::mapToDto)
+                .map(mapper::toDto)
                 .orElseThrow(() -> new EntityNotFoundException(id));
     }
 

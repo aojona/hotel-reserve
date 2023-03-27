@@ -4,10 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-// TODO: переделать на check_in_date
-@Table(uniqueConstraints={
-        @UniqueConstraint(columnNames = {"user_id", "room_id"})
-})
+// переделать на check_in_date
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "room_id"})})
 @Data
 public class Reservation {
 
