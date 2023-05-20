@@ -15,9 +15,9 @@ public class Room {
 
     private boolean available;
 
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
     private Integer number;
 
-    @OneToMany(mappedBy = "room", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
     private List<Reservation> reservation;
 }

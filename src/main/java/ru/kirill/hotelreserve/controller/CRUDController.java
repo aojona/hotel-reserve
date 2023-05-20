@@ -1,12 +1,18 @@
 package ru.kirill.hotelreserve.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.kirill.hotelreserve.dto.ResponseData;
+import ru.kirill.hotelreserve.exception.EntityNotCreatedException;
+import ru.kirill.hotelreserve.exception.EntityNotUpdatedException;
 import ru.kirill.hotelreserve.service.CRUDService;
+import ru.kirill.hotelreserve.util.BindingResultUtil;
+
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -23,7 +29,11 @@ public abstract class CRUDController<E,D,ID extends Number> {
 
     @PostMapping
     @Operation(summary = "Создать")
-    public ResponseEntity<D> createRoom(@RequestBody D roomToCreate) {
+    public ResponseEntity<D> createRoom(@RequestBody @Valid D roomToCreate, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            String errorMessage = BindingResultUtil.getErrorMessage(bindingResult);
+            throw new EntityNotCreatedException(errorMessage);
+        }
         D roomResponse = crudService.create(roomToCreate);
         return new ResponseEntity<>(roomResponse, HttpStatus.CREATED);
     }
@@ -37,7 +47,11 @@ public abstract class CRUDController<E,D,ID extends Number> {
 
     @PutMapping("/{id}")
     @Operation(summary = "Обновить по id")
-    public ResponseEntity<D> update(@PathVariable ID id, @RequestBody D roomToUpdate) {
+    public ResponseEntity<D> update(@PathVariable ID id, @RequestBody @Valid D roomToUpdate, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            String errorMessage = BindingResultUtil.getErrorMessage(bindingResult);
+            throw new EntityNotUpdatedException(errorMessage);
+        }
         D roomResponse = crudService.update(id, roomToUpdate);
         return new ResponseEntity<>(roomResponse, HttpStatus.OK);
     }

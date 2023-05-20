@@ -1,12 +1,9 @@
 spring:
-  # Data source properties
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
     password: pass
-
-  # Hibernate properties
   jpa:
     properties.hibernate:
       dialect: org.hibernate.dialect.PostgreSQLDialect
