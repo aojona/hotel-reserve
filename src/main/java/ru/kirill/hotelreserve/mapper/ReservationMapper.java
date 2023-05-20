@@ -51,13 +51,13 @@ public class ReservationMapper extends Mapper<Reservation, ReservationDto> {
         Integer roomNumber = source.getRoomNumber();
         return roomRepository
                 .findByNumber(roomNumber)
-                .orElseThrow(() -> new EntityNotFoundException("Room number " + roomNumber + " doesn't exist"));
+                .orElseThrow(() -> new EntityNotFoundException("Room " + roomNumber + " doesn't exist"));
     }
 
     private User findUser(ReservationDto source) {
         String userEmail = source.getUserEmail();
         return userRepository
                 .findByEmail(userEmail)
-                .orElseThrow(() -> new EntityNotFoundException("User with email " + userEmail + " doesn't exist"));
+                .orElseThrow(() -> new EntityNotFoundException("User email " + userEmail + " doesn't exist"));
     }
 }
