@@ -8,7 +8,14 @@ import ru.kirill.hotelreserve.repository.HotelRepository;
 
 @Service
 public class HotelService extends CRUDService<Hotel, HotelDto,Long> {
+
+    private final HotelRepository hotelRepository;
     public HotelService(HotelRepository hotelRepository, HotelMapper mapper) {
         super(hotelRepository, mapper);
+        this.hotelRepository = hotelRepository;
+    }
+
+    public Long countAvailableRooms(String name) {
+        return hotelRepository.countAvailableRooms(name);
     }
 }

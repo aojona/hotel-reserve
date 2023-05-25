@@ -5,14 +5,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.kirill.hotelreserve.dto.UserDto;
 import ru.kirill.hotelreserve.entity.User;
-import ru.kirill.hotelreserve.service.CRUDService;
+import ru.kirill.hotelreserve.service.UserService;
 
 @Tag(name = "Users")
 @RestController
 @RequestMapping("/api/v1/users")
-public class UserController extends CRUDController<User, UserDto, Long> {
+public class UserController extends CRUDController<User,UserDto,Long> {
 
-    public UserController(CRUDService<User, UserDto, Long> crudService) {
-        super(crudService);
+    public UserController(UserService userService) {
+        super(userService);
     }
 }
