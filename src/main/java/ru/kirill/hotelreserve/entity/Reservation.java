@@ -2,11 +2,13 @@ package ru.kirill.hotelreserve.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Entity
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"room_id", "hotel_id"})})
 @Data
-public class Reservation {
+@EqualsAndHashCode(callSuper = false)
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"room_id", "hotel_id"})})
+public class Reservation extends AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -51,7 +51,9 @@ public class ReservationService extends CRUDService<Reservation,ReservationDto,L
 
     private void reserveRoom(ReservationDto reservationDto) {
         Room room = getRoom(reservationDto);
-        throwExceptionIfRoomIsNotAvailable(room);
+        if (!room.isAvailable()) {
+            throw new RoomNotAvailableException("Room " + room.getNumber() + " is not available");
+        }
         room.setAvailable(false);
     }
 
@@ -66,11 +68,5 @@ public class ReservationService extends CRUDService<Reservation,ReservationDto,L
         return hotelRepository
                 .findByName(hotelName)
                 .orElseThrow(() -> new EntityNotFoundException("Hotel " + hotelName + " is not found"));
-    }
-
-    private void throwExceptionIfRoomIsNotAvailable(Room room) {
-        if (!room.isAvailable()) {
-            throw new RoomNotAvailableException("Room " + room.getNumber() + " is not available");
-        }
     }
 }
