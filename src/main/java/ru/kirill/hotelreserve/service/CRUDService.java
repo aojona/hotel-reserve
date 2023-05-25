@@ -1,6 +1,7 @@
 package ru.kirill.hotelreserve.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kirill.hotelreserve.exception.EntityNotFoundException;
@@ -21,6 +22,13 @@ public abstract class CRUDService<E,D,ID extends Number> {
                 .stream()
                 .map(mapper::toDto)
                 .toList();
+    }
+
+    public List<D> getPage(int page, int size) {
+        return jpaRepository
+                .findAll(PageRequest.of(page, size))
+                .map(mapper::toDto)
+                .getContent();
     }
 
     @Transactional
