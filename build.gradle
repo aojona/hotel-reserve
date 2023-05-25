@@ -27,6 +27,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${versions.springdoc}"
     implementation "org.modelmapper:modelmapper:${versions.modelmapper}"
+    implementation "org.liquibase:liquibase-core:${versions.liquibase}"
 
     runtimeOnly 'org.postgresql:postgresql'
 
