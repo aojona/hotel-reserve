@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-// переделать на check_in_date
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "room_id"})})
 @Data
 public class Reservation {
@@ -20,4 +19,8 @@ public class Reservation {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room_id")
     private Room room;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "hotel_id")
+    private Hotel hotel;
 }

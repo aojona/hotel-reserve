@@ -1,25 +1,24 @@
 package ru.kirill.hotelreserve.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import java.util.List;
 
 @Entity
 @Data
-@Table(name = "users")
-public class User {
+public class Hotel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String firstName;
+    @NotNull
+    private String name;
 
-    private String lastName;
+    @OneToMany(mappedBy = "hotel")
+    private List<Room> rooms;
 
-    @Column(unique = true)
-    private String email;
-
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "hotel")
     private List<Reservation> reservations;
 }

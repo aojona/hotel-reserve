@@ -6,7 +6,7 @@ import org.springframework.web.server.ResponseStatusException;
 public class EntityNotFoundException extends ResponseStatusException {
 
     public EntityNotFoundException(Number id) {
-        super(HttpStatus.NOT_FOUND, "entity with id " + id + " doesn't exist");
+        super(HttpStatus.NOT_FOUND, "entity with id " + id + " is not found");
     }
 
     public EntityNotFoundException(String message) {

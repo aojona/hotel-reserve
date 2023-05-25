@@ -1,6 +1,7 @@
 package ru.kirill.hotelreserve.dto;
 
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,4 +17,7 @@ public class ReservationDto {
 
     @NotNull
     private Integer roomNumber;
+
+    @NotBlank
+    private String hotelName;
 }

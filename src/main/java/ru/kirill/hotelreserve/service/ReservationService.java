@@ -2,27 +2,30 @@ package ru.kirill.hotelreserve.service;
 
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import ru.kirill.hotelreserve.dto.ReservationDto;
+import ru.kirill.hotelreserve.entity.Hotel;
 import ru.kirill.hotelreserve.entity.Reservation;
-
 import ru.kirill.hotelreserve.entity.Room;
 import ru.kirill.hotelreserve.exception.EntityNotFoundException;
 import ru.kirill.hotelreserve.exception.RoomNotAvailableException;
-import ru.kirill.hotelreserve.mapper.Mapper;
+import ru.kirill.hotelreserve.mapper.ReservationMapper;
+import ru.kirill.hotelreserve.repository.HotelRepository;
+import ru.kirill.hotelreserve.repository.ReservationRepository;
 import ru.kirill.hotelreserve.repository.RoomRepository;
 
 @Service
 public class ReservationService extends CRUDService<Reservation,ReservationDto,Long> {
 
     private final RoomRepository roomRepository;
+    private final HotelRepository hotelRepository;
 
     @Autowired
-    public ReservationService(JpaRepository<Reservation, Long> jpaRepository, Mapper<Reservation, ReservationDto> mapper,
-                              RoomRepository roomRepository) {
-        super(jpaRepository, mapper);
+    public ReservationService(ReservationRepository reservationRepository, ReservationMapper mapper,
+                              RoomRepository roomRepository, HotelRepository hotelRepository) {
+        super(reservationRepository, mapper);
         this.roomRepository = roomRepository;
+        this.hotelRepository = hotelRepository;
     }
 
     @Override
@@ -53,10 +56,18 @@ public class ReservationService extends CRUDService<Reservation,ReservationDto,L
     }
 
     private Room getRoom(ReservationDto reservationDto) {
+        Hotel hotel = findHotelByName(reservationDto.getHotelName());
         return roomRepository
-                .findByNumber(reservationDto.getRoomNumber())
-                .orElseThrow(() -> new EntityNotFoundException("Room " + reservationDto.getRoomNumber() + " doesn't exist"));
+                .findByNumberAndHotel(reservationDto.getRoomNumber(), hotel)
+                .orElseThrow(() -> new EntityNotFoundException("Room " + reservationDto.getRoomNumber() + " in " + hotel.getName() + " is not found"));
     }
+
+    private Hotel findHotelByName(String hotelName) {
+        return hotelRepository
+                .findByName(hotelName)
+                .orElseThrow(() -> new EntityNotFoundException("Hotel " + hotelName + " is not found"));
+    }
+
     private void throwExceptionIfRoomIsNotAvailable(Room room) {
         if (!room.isAvailable()) {
             throw new RoomNotAvailableException("Room " + room.getNumber() + " is not available");
