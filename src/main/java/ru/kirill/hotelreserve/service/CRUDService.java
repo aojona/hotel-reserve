@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kirill.hotelreserve.exception.EntityNotFoundException;
 import ru.kirill.hotelreserve.mapper.Mapper;
+
+import java.net.Authenticator;
 import java.util.List;
 import java.util.Optional;
 
