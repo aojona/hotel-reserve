@@ -23,7 +23,7 @@ public class UserService extends CRUDService<User,UserRequest,UserResponse,Long>
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) {
         return userRepository
                 .findByEmail(email)
                 .map(user -> new org.springframework.security.core.userdetails.User(
