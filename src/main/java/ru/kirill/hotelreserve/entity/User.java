@@ -3,6 +3,7 @@ package ru.kirill.hotelreserve.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import ru.kirill.hotelreserve.enums.UserRole;
 import java.util.List;
 
 @Entity
@@ -19,8 +20,12 @@ public class User extends AbstractEntity {
 
     private String lastName;
 
-    @Column(unique = true)
     private String email;
+
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
 
     @OneToMany(mappedBy = "user")
     private List<Reservation> reservations;

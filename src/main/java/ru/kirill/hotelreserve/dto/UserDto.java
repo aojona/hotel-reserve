@@ -19,4 +19,7 @@ public class UserDto {
 
     @Email
     private String email;
+
+    @NotBlank
+    private String rawPassword;
 }
