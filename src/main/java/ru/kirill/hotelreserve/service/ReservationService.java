@@ -3,14 +3,13 @@ package ru.kirill.hotelreserve.service;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.kirill.hotelreserve.dto.HotelReservationDto;
 import ru.kirill.hotelreserve.dto.ReservationDto;
-import ru.kirill.hotelreserve.entity.Hotel;
 import ru.kirill.hotelreserve.entity.Reservation;
 import ru.kirill.hotelreserve.entity.Room;
 import ru.kirill.hotelreserve.exception.EntityNotFoundException;
 import ru.kirill.hotelreserve.exception.RoomNotAvailableException;
 import ru.kirill.hotelreserve.mapper.ReservationMapper;
-import ru.kirill.hotelreserve.repository.HotelRepository;
 import ru.kirill.hotelreserve.repository.ReservationRepository;
 import ru.kirill.hotelreserve.repository.RoomRepository;
 
@@ -18,14 +17,12 @@ import ru.kirill.hotelreserve.repository.RoomRepository;
 public class ReservationService extends CRUDService<Reservation,ReservationDto,Long> {
 
     private final RoomRepository roomRepository;
-    private final HotelRepository hotelRepository;
 
     @Autowired
     public ReservationService(ReservationRepository reservationRepository, ReservationMapper mapper,
-                              RoomRepository roomRepository, HotelRepository hotelRepository) {
+                              RoomRepository roomRepository) {
         super(reservationRepository, mapper);
         this.roomRepository = roomRepository;
-        this.hotelRepository = hotelRepository;
     }
 
     @Override
@@ -43,30 +40,50 @@ public class ReservationService extends CRUDService<Reservation,ReservationDto,L
         return super.update(id, reservationDto);
     }
 
+    @Transactional
+    public ReservationDto reserveFreeRoom(HotelReservationDto hotelReservationDto) {
+
+        Room room = findFreeRoomByHotelName(hotelReservationDto.getHotelName());
+        reserveRoom(room);
+        return super.create(createReservationDto(hotelReservationDto, room));
+    }
+
     private void vacateRoom(ReservationDto reservationDto) {
-        Room room = getRoom(reservationDto);
+        Room room = findRoomByNumberAndHotelName(reservationDto.getRoomNumber(), reservationDto.getHotelName());
         room.setAvailable(true);
         roomRepository.saveAndFlush(room);
     }
 
     private void reserveRoom(ReservationDto reservationDto) {
-        Room room = getRoom(reservationDto);
+        Room room = findRoomByNumberAndHotelName(reservationDto.getRoomNumber(), reservationDto.getHotelName());
+        reserveRoom(room);
+    }
+
+    private static void reserveRoom(Room room) {
         if (!room.isAvailable()) {
             throw new RoomNotAvailableException("Room " + room.getNumber() + " is not available");
         }
         room.setAvailable(false);
     }
 
-    private Room getRoom(ReservationDto reservationDto) {
-        Hotel hotel = findHotelByName(reservationDto.getHotelName());
+    private Room findRoomByNumberAndHotelName(Integer roomNumber, String hotelName) {
         return roomRepository
-                .findByNumberAndHotel(reservationDto.getRoomNumber(), hotel)
-                .orElseThrow(() -> new EntityNotFoundException("Room " + reservationDto.getRoomNumber() + " in " + hotel.getName() + " is not found"));
+                .findByNumberAndHotelName(roomNumber, hotelName)
+                .orElseThrow(() -> new EntityNotFoundException("Room " + roomNumber + " in " + hotelName + " is not found"));
     }
 
-    private Hotel findHotelByName(String hotelName) {
-        return hotelRepository
-                .findByName(hotelName)
-                .orElseThrow(() -> new EntityNotFoundException("Hotel " + hotelName + " is not found"));
+    private Room findFreeRoomByHotelName(String hotelName) {
+        return roomRepository
+                .findTop1ByHotelNameAndAvailableTrue(hotelName)
+                .orElseThrow(() -> new RoomNotAvailableException("There are no available rooms in hotel: " + hotelName));
+    }
+
+    private static ReservationDto createReservationDto(HotelReservationDto reservationDto, Room room) {
+        return ReservationDto
+                .builder()
+                .roomNumber(room.getNumber())
+                .hotelName(reservationDto.getHotelName())
+                .userEmail(reservationDto.getUserEmail())
+                .build();
     }
 }

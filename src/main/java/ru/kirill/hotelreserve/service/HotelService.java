@@ -16,6 +16,6 @@ public class HotelService extends CRUDService<Hotel, HotelDto,Long> {
     }
 
     public Long countAvailableRooms(String name) {
-        return hotelRepository.countAvailableRooms(name);
+        return hotelRepository.countByNameAndRoomsAvailableTrue(name);
     }
 }
