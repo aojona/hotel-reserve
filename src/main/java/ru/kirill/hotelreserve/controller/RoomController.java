@@ -9,7 +9,7 @@ import ru.kirill.hotelreserve.service.RoomService;
 @Tag(name = "Rooms")
 @RestController
 @RequestMapping("/api/v1/rooms")
-public class RoomController extends CRUDController<Room,RoomDto,Long> {
+public class RoomController extends CRUDController<Room,RoomDto,RoomDto,Long> {
 
     public RoomController(RoomService roomService) {
         super(roomService);

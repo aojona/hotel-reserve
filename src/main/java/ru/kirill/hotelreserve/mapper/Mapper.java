@@ -6,55 +6,56 @@ import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 
 @RequiredArgsConstructor
-public abstract class Mapper<E,D> {
+public abstract class Mapper<E,D1,D2> {
 
     protected final ModelMapper modelMapper;
     private final Class<E> entityClass;
-    private final Class<D> dtoClass;
+    private final Class<D1> requestDtoClass;
+    private final Class<D2> responseDtoClass;
 
     @PostConstruct
     private void setup() {
         modelMapper
-                .createTypeMap(entityClass, dtoClass)
+                .createTypeMap(entityClass, responseDtoClass)
                 .setPostConverter(toDtoConverter());
         modelMapper
-                .createTypeMap(dtoClass, entityClass)
+                .createTypeMap(requestDtoClass, entityClass)
                 .setPostConverter(toEntityConverter());
     }
 
-    public D toDto(E entity) {
-        return modelMapper.map(entity, dtoClass);
+    public D2 toDto(E entity) {
+        return modelMapper.map(entity, responseDtoClass);
     }
 
-    public E toEntity(D dto) {
+    public E toEntity(D1 dto) {
         return modelMapper.map(dto, entityClass);
     }
 
-    public void updateEntity(D source, E entityToUpdate) {
+    public void updateEntity(D1 source, E entityToUpdate) {
         modelMapper.map(source, entityToUpdate);
     }
 
-    private Converter<E, D> toDtoConverter() {
+    private Converter<E, D2> toDtoConverter() {
         return context -> {
             E source = context.getSource();
-            D destination = context.getDestination();
+            D2 destination = context.getDestination();
             mapToDto(source, destination);
             return destination;
         };
     }
 
-    protected Converter<D, E> toEntityConverter() {
+    protected Converter<D1, E> toEntityConverter() {
         return context -> {
-            D source = context.getSource();
+            D1 source = context.getSource();
             E destination = context.getDestination();
             mapToEntity(source, destination);
             return destination;
         };
     }
 
-    protected void mapToDto(E source, D destination) {
+    protected void mapToDto(E source, D2 destination) {
     }
 
-    protected void mapToEntity(D source, E destination) {
+    protected void mapToEntity(D1 source, E destination) {
     }
 }

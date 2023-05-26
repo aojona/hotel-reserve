@@ -14,7 +14,7 @@ import ru.kirill.hotelreserve.repository.ReservationRepository;
 import ru.kirill.hotelreserve.repository.RoomRepository;
 
 @Service
-public class ReservationService extends CRUDService<Reservation,ReservationDto,Long> {
+public class ReservationService extends CRUDService<Reservation,ReservationDto,ReservationDto,Long> {
 
     private final RoomRepository roomRepository;
 

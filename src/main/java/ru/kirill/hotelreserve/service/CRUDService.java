@@ -6,19 +6,17 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kirill.hotelreserve.exception.EntityNotFoundException;
 import ru.kirill.hotelreserve.mapper.Mapper;
-
-import java.net.Authenticator;
 import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public abstract class CRUDService<E,D,ID extends Number> {
+public abstract class CRUDService<E,D1,D2,ID extends Number> {
 
     protected final JpaRepository<E,ID> jpaRepository;
-    protected final Mapper<E, D> mapper;
+    protected final Mapper<E,D1,D2> mapper;
 
-    public List<D> getAll() {
+    public List<D2> getAll() {
         return jpaRepository
                 .findAll()
                 .stream()
@@ -26,7 +24,7 @@ public abstract class CRUDService<E,D,ID extends Number> {
                 .toList();
     }
 
-    public List<D> getPage(int page, int size) {
+    public List<D2> getPage(int page, int size) {
         return jpaRepository
                 .findAll(PageRequest.of(page, size))
                 .map(mapper::toDto)
@@ -34,7 +32,7 @@ public abstract class CRUDService<E,D,ID extends Number> {
     }
 
     @Transactional
-    public D create(D source) {
+    public D2 create(D1 source) {
         return Optional.of(source)
                 .map(mapper::toEntity)
                 .map(jpaRepository::save)
@@ -42,7 +40,7 @@ public abstract class CRUDService<E,D,ID extends Number> {
                 .orElseThrow();
     }
 
-    public D get(ID id) {
+    public D2 get(ID id) {
         return jpaRepository
                 .findById(id)
                 .map(mapper::toDto)
@@ -50,7 +48,7 @@ public abstract class CRUDService<E,D,ID extends Number> {
     }
 
     @Transactional
-    public D update(ID id, D source) {
+    public D2 update(ID id, D1 source) {
         return jpaRepository
                 .findById(id)
                 .map(entityToUpdate -> {

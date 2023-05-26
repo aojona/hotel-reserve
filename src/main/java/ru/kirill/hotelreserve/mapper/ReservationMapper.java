@@ -12,14 +12,14 @@ import ru.kirill.hotelreserve.repository.RoomRepository;
 import ru.kirill.hotelreserve.repository.UserRepository;
 
 @Component
-public class ReservationMapper extends Mapper<Reservation, ReservationDto> {
+public class ReservationMapper extends Mapper<Reservation,ReservationDto,ReservationDto> {
 
     private final UserRepository userRepository;
     private final RoomRepository roomRepository;
 
     @Autowired
     public ReservationMapper(ModelMapper modelMapper, UserRepository userRepository, RoomRepository roomRepository) {
-        super(modelMapper, Reservation.class, ReservationDto.class);
+        super(modelMapper, Reservation.class, ReservationDto.class,ReservationDto.class);
         this.userRepository = userRepository;
         this.roomRepository = roomRepository;
     }

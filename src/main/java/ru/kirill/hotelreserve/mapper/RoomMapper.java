@@ -9,12 +9,12 @@ import ru.kirill.hotelreserve.exception.EntityNotFoundException;
 import ru.kirill.hotelreserve.repository.HotelRepository;
 
 @Component
-public class RoomMapper extends Mapper<Room, RoomDto> {
+public class RoomMapper extends Mapper<Room,RoomDto,RoomDto> {
 
     private final HotelRepository hotelRepository;
 
     public RoomMapper(ModelMapper modelMapper, HotelRepository hotelRepository) {
-        super(modelMapper, Room.class, RoomDto.class);
+        super(modelMapper, Room.class, RoomDto.class, RoomDto.class);
         this.hotelRepository = hotelRepository;
     }
 

@@ -7,7 +7,7 @@ import ru.kirill.hotelreserve.mapper.RoomMapper;
 import ru.kirill.hotelreserve.repository.RoomRepository;
 
 @Service
-public class RoomService extends CRUDService<Room,RoomDto,Long> {
+public class RoomService extends CRUDService<Room,RoomDto,RoomDto,Long> {
 
     public RoomService(RoomRepository roomRepository, RoomMapper mapper) {
         super(roomRepository, mapper);

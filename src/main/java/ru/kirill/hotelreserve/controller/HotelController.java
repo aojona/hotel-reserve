@@ -12,7 +12,7 @@ import ru.kirill.hotelreserve.service.HotelService;
 @Tag(name = "Hotels")
 @RestController
 @RequestMapping("/api/v1/hotels")
-public class HotelController extends CRUDController<Hotel,HotelDto,Long> {
+public class HotelController extends CRUDController<Hotel,HotelDto,HotelDto,Long> {
 
     private final HotelService hotelService;
 
