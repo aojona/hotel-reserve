@@ -1,5 +1,6 @@
 package ru.kirill.hotelreserve.config;
-
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
@@ -7,18 +8,22 @@ import org.springframework.context.annotation.Configuration;
 import org.modelmapper.config.Configuration.AccessLevel;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-
 import java.util.Optional;
+import static ru.kirill.hotelreserve.enums.UserRole.ADMIN;
 
 @Configuration
 @EnableJpaAuditing
+@SecurityScheme(
+        type = SecuritySchemeType.HTTP,
+        name = "aojonaAuth",
+        scheme = "basic"
+)
 public class AppConfig {
 
     @Bean
@@ -36,10 +41,10 @@ public class AppConfig {
         http
                 .csrf().disable()
                 .authorizeHttpRequests(config -> config
-                        .anyRequest().authenticated()
+                        .requestMatchers("/api/**").hasAuthority(ADMIN.getAuthority())
+                        .anyRequest().permitAll()
                 )
-                .httpBasic(Customizer.withDefaults())
-        ;
+                .httpBasic();
         return http.build();
     }
 

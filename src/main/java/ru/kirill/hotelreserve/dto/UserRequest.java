@@ -1,18 +1,30 @@
 package ru.kirill.hotelreserve.dto;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-
+import ru.kirill.hotelreserve.enums.EnumValidator;
+import ru.kirill.hotelreserve.enums.UserRole;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = true)
-public class UserRequest extends UserResponse {
+public class UserRequest {
 
     @NotBlank
     private String rawPassword;
+
+    @NotBlank
+    private String firstName;
+
+    @NotBlank
+    private String lastName;
+
+    @Email
+    private String email;
+
+    @EnumValidator(clazz = UserRole.class, message = "only 'ADMIN' or 'USER' are acceptable")
+    String role;
 }
