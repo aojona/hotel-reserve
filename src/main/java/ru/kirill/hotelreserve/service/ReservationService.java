@@ -10,10 +10,12 @@ import ru.kirill.hotelreserve.entity.Room;
 import ru.kirill.hotelreserve.exception.EntityNotFoundException;
 import ru.kirill.hotelreserve.exception.RoomNotAvailableException;
 import ru.kirill.hotelreserve.mapper.ReservationMapper;
+import ru.kirill.hotelreserve.config.logging.Logging;
 import ru.kirill.hotelreserve.repository.ReservationRepository;
 import ru.kirill.hotelreserve.repository.RoomRepository;
 
 @Service
+@Logging
 public class ReservationService extends CRUDService<Reservation,ReservationDto,ReservationDto,Long> {
 
     private final RoomRepository roomRepository;

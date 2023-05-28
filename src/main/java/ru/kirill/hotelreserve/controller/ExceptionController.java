@@ -1,6 +1,7 @@
 package ru.kirill.hotelreserve.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -10,11 +11,14 @@ import ru.kirill.hotelreserve.exception.ExceptionResponse;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
+
+@Slf4j
 @RestControllerAdvice
 public class ExceptionController {
 
     private ResponseEntity<ExceptionResponse> handleException(Exception e, HttpServletRequest httpServletRequest,
                                                               HttpStatus httpStatus) {
+        log.info("{}: {}, message: {}", httpServletRequest.getRequestURI(), httpStatus, e.getMessage());
         ExceptionResponse response = new ExceptionResponse(
                 LocalDateTime.now(),
                 httpStatus.value(),
