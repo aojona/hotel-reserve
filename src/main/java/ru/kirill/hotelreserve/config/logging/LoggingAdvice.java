@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
-@Component
 @Slf4j
+@Component
 public class LoggingAdvice implements MethodInterceptor {
 
     @Override
