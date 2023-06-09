@@ -14,6 +14,5 @@ public class UserService extends CRUDService<User,UserRequest,UserResponse,Long>
 
     public UserService(UserRepository userRepository, UserMapper mapper) {
         super(userRepository, mapper);
-
     }
 }

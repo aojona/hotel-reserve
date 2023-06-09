@@ -14,7 +14,7 @@ import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import ru.kirill.hotelreserve.integration.IntegrationTestBase;
 import ru.kirill.hotelreserve.dto.UserRequest;
-import ru.kirill.hotelreserve.util.TestDtoBuilder;
+import ru.kirill.hotelreserve.util.TestObjectBuilder;
 import java.lang.reflect.Constructor;
 
 import static org.hamcrest.Matchers.hasSize;
@@ -90,7 +90,7 @@ class CRUDControllerTest extends IntegrationTestBase {
     @Test
     @SneakyThrows
     void shouldCreateWithCorrectRequest() {
-        UserRequest request = TestDtoBuilder.newCorrectUserRequest();
+        UserRequest request = TestObjectBuilder.getCorrectUserRequest();
         checkPostRequestResponseAndStatus(request, POST, "", status().isCreated());
     }
 
@@ -98,7 +98,7 @@ class CRUDControllerTest extends IntegrationTestBase {
     @Test
     @SneakyThrows
     void shouldNotCreateWithWrongRequest() {
-        UserRequest request = TestDtoBuilder.newWrongUserRequest();
+        UserRequest request = TestObjectBuilder.getWrongUserRequest();
         postRequest(request, POST, "")
                 .andExpect(status().isBadRequest());
     }
@@ -106,14 +106,14 @@ class CRUDControllerTest extends IntegrationTestBase {
     @Test
     @SneakyThrows
     void shouldUpdateWithCorrectIdAndRequest() {
-        UserRequest request = TestDtoBuilder.newCorrectUserRequest();
+        UserRequest request = TestObjectBuilder.getCorrectUserRequest();
         checkPostRequestResponseAndStatus(request, PUT, CORRECT_ID, status().isOk());
     }
 
     @Test
     @SneakyThrows
     void shouldNotUpdateWithWrongId() {
-        UserRequest request = TestDtoBuilder.newCorrectUserRequest();
+        UserRequest request = TestObjectBuilder.getCorrectUserRequest();
         postRequest(request, PUT, WRONG_ID)
                 .andExpect(status().isNotFound());
     }
@@ -121,7 +121,7 @@ class CRUDControllerTest extends IntegrationTestBase {
     @Test
     @SneakyThrows
     void shouldNotUpdateWithWrongRequest() {
-        UserRequest request = TestDtoBuilder.newWrongUserRequest();
+        UserRequest request = TestObjectBuilder.getWrongUserRequest();
         postRequest(request, PUT, CORRECT_ID)
                 .andExpect(status().isBadRequest());
     }

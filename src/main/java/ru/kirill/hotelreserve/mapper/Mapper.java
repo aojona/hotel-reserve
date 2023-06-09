@@ -6,7 +6,7 @@ import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 
 @RequiredArgsConstructor
-public abstract class Mapper<E,D1,D2> {
+public class Mapper<E,D1,D2> {
 
     protected final ModelMapper modelMapper;
     private final Class<E> entityClass;

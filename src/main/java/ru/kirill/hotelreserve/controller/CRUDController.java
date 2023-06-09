@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import ru.kirill.hotelreserve.config.logging.Logging;
 import ru.kirill.hotelreserve.dto.ResponseData;
 import ru.kirill.hotelreserve.exception.EntityNotCreatedException;
 import ru.kirill.hotelreserve.exception.EntityNotUpdatedException;
@@ -15,6 +16,9 @@ import ru.kirill.hotelreserve.service.CRUDService;
 import ru.kirill.hotelreserve.util.BindingResultUtil;
 import java.util.List;
 
+import static ru.kirill.hotelreserve.enums.LayerType.CONTROLLER;
+
+@Logging(value = CONTROLLER)
 @RequiredArgsConstructor
 @SecurityRequirement(name = "aojonaAuth")
 public abstract class CRUDController<E,D1,D2,ID extends Number> {

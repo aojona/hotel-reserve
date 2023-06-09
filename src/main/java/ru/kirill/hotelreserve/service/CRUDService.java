@@ -6,13 +6,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kirill.hotelreserve.exception.EntityNotFoundException;
 import ru.kirill.hotelreserve.mapper.Mapper;
-import ru.kirill.hotelreserve.config.logging.Logging;
-
 import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
-@Logging
 @Transactional(readOnly = true)
 public abstract class CRUDService<E,D1,D2,ID extends Number> {
 

@@ -1,8 +1,7 @@
 package ru.kirill.hotelreserve.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import ru.kirill.hotelreserve.enums.UserRole;
 import java.util.List;
 
@@ -10,6 +9,9 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Table(name = "users")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class User extends AbstractEntity {
 
     @Id
