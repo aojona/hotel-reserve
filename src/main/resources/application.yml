@@ -12,3 +12,7 @@ server:
   error:
     include-message: always
 
+logging:
+  file:
+    name: app.log
+    path: /

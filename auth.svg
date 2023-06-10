@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg width="100%" height="100%" viewBox="0 0 1317 662" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
-    <g transform="matrix(1.13011,0,0,1.13011,109.091,163.698)">
+<svg width="100%" height="100%" viewBox="0 0 780 189" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
+    <g transform="matrix(0.847579,0,0,0.847579,-19.5482,-24.0996)">
         <g transform="matrix(0.884873,0,0,0.884873,-96.5318,-144.852)">
             <path d="M907.063,309.148C907.175,304.516 909.369,301.798 915.903,301.764L967.958,301.622L968.076,280.537C968.076,264.321 941.439,261.994 940.865,280.378L940.95,287.577L927.766,287.577C924.326,244.502 977.68,246.391 981.538,279.518L981.561,301.576L992.102,301.594C999.042,301.577 1001.92,305.24 1002.02,308.68L1002.02,358.449C1002.47,368.697 993.382,375.409 977.178,375.865L933.69,375.865C921.476,376.009 908.949,372.33 907.005,360.187L907.063,309.148Z" style="fill:rgb(72,204,144);"/>
         </g>
         <g transform="matrix(0.890529,0,0,0.873821,-99.7273,-140.5)">
-            <path d="M1157.37,221.494C1157.37,211.927 1149.75,204.159 1140.36,204.159L168.307,204.159C158.918,204.159 151.297,211.927 151.297,221.494L151.297,420.316C151.297,429.883 158.918,437.651 168.307,437.651L1140.36,437.651C1149.75,437.651 1157.37,429.883 1157.37,420.316L1157.37,221.494Z" style="fill:none;stroke:rgb(72,204,144);stroke-width:11.14px;"/>
+            <path d="M1157.37,221.494C1157.37,211.927 1149.75,204.159 1140.36,204.159L168.307,204.159C158.918,204.159 151.297,211.927 151.297,221.494L151.297,420.316C151.297,429.883 158.918,437.651 168.307,437.651L1140.36,437.651C1149.75,437.651 1157.37,429.883 1157.37,420.316L1157.37,221.494Z" style="fill:none;stroke:rgb(72,204,144);stroke-width:14.86px;"/>
         </g>
         <g transform="matrix(0.884873,0,0,0.884873,-116.021,-153.693)">
             <text x="331.877px" y="365.448px" style="font-family:'Helvetica-Bold', 'Helvetica';font-weight:700;font-size:94.444px;fill:rgb(72,204,144);">Authorize</text>
