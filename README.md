@@ -23,10 +23,10 @@ docker run --name hotel-database -e POSTGRES_PASSWORD=pass -p 5432:5432 -d postg
 ```shell
 ./gradlew bootRun
 ```
-3. Перейти на [страницу](localhost:8080/swagger-ui.html) с интерактивной документацией
+3. Перейти на страницу с интерактивной документацией `localhost:8080/swagger-ui.html`
 
 4. Пройти Basic аутентификацию c username `swift@gmail.com` и password `1234`
-<img src="https://github.com/aojona/hotel-reserve/blob/main/auth.svg" width="180">
+<img src="https://github.com/aojona/hotel-reserve/blob/main/auth.svg" width="140">
 
 ## База данных
 
