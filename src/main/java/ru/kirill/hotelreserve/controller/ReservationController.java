@@ -29,7 +29,7 @@ public class ReservationController extends CRUDController<Reservation,Reservatio
     }
 
     @PostMapping("/reserve")
-    @Operation(summary = "Забронить свободный номер")
+    @Operation(summary = "Забронить любой свободный номер")
     public ReservationDto reserveFreeRoom(HotelReservationDto hotelReservationDto) {
         return reservationService.reserveFreeRoom(hotelReservationDto);
     }
