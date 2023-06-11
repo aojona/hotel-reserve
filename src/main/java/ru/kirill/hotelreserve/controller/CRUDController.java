@@ -15,7 +15,7 @@ import ru.kirill.hotelreserve.config.logging.Logging;
 import ru.kirill.hotelreserve.dto.ResponseData;
 import ru.kirill.hotelreserve.exception.EntityNotCreatedException;
 import ru.kirill.hotelreserve.exception.EntityNotUpdatedException;
-import ru.kirill.hotelreserve.listener.EntityEvent;
+import ru.kirill.hotelreserve.listener.CreateUpdateEvent;
 import ru.kirill.hotelreserve.service.CRUDService;
 import ru.kirill.hotelreserve.util.BindingResultUtil;
 import java.util.List;
@@ -42,7 +42,7 @@ public abstract class CRUDController<E,D1,D2,ID extends Number> {
 
     @PostMapping
     @Operation(summary = "Создать")
-    @Parameter(name = "lang", allowEmptyValue = true, description = "i18n")
+    @Parameter(name = "lang", allowEmptyValue = true, description = "en(default)/ru")
     public ResponseEntity<D2> create(@RequestBody @Valid D1 requestDto, BindingResult bindingResult,
                                      HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
@@ -50,7 +50,7 @@ public abstract class CRUDController<E,D1,D2,ID extends Number> {
             throw new EntityNotCreatedException(errorMessage);
         }
         D2 responseDto = crudService.create(requestDto);
-        eventPublisher.publishEvent(new EntityEvent<>(responseDto, request));
+        eventPublisher.publishEvent(new CreateUpdateEvent<>(responseDto, request, "create"));
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 
@@ -63,7 +63,7 @@ public abstract class CRUDController<E,D1,D2,ID extends Number> {
 
     @PutMapping("/{id}")
     @Operation(summary = "Обновить по id")
-    @Parameter(name = "lang", allowEmptyValue = true, description = "i18n")
+    @Parameter(name = "lang", allowEmptyValue = true, description = "en(default)/ru")
     public ResponseEntity<D2> update(@PathVariable ID id, @RequestBody @Valid D1 requestDto, BindingResult bindingResult,
                                      HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
@@ -71,7 +71,7 @@ public abstract class CRUDController<E,D1,D2,ID extends Number> {
             throw new EntityNotUpdatedException(errorMessage);
         }
         D2 responseDto = crudService.update(id, requestDto);
-        eventPublisher.publishEvent(new EntityEvent<>(responseDto, request));
+        eventPublisher.publishEvent(new CreateUpdateEvent<>(responseDto, request, "update"));
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 

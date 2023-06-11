@@ -27,11 +27,11 @@ docker run --name hotel-database -e POSTGRES_PASSWORD=pass -p 5432:5432 -d postg
 3. Перейти на страницу с интерактивной документацией `localhost:8080/swagger-ui.html`
 
 4. Пройти Basic аутентификацию c username `swift@gmail.com` и password `1234`
-<img src="https://github.com/aojona/hotel-reserve/blob/main/auth.svg" width="140">
+<img src="https://github.com/aojona/hotel-reserve/blob/main/data/auth.svg" width="140">
 
 ## База данных
 
-![diagram](https://github.com/aojona/hotel-reserve/blob/main/diagram.svg)
+![diagram](https://github.com/aojona/hotel-reserve/blob/main/data/diagram.svg)
 
 ### Эндпоинты
 
@@ -55,7 +55,7 @@ docker run --name hotel-database -e POSTGRES_PASSWORD=pass -p 5432:5432 -d postg
 		<tr>
 			<td><strong>POST</strong></td>
 			<td>users/</td>
-			<td>Создать пользователя</td>
+			<td>Зарегестрировать пользователя</td>
 		</tr>
 		<tr>
 			<td><strong>GET</strong></td>
@@ -171,14 +171,12 @@ docker run --name hotel-database -e POSTGRES_PASSWORD=pass -p 5432:5432 -d postg
 
 Prefix `api/v1` is required for REST API
 
-### Пример запроса
-
+### Примеры запросов
+Request
 ```http
 GET /api/v1/users?page=0&size=2
 ```
-
-### Пример ответа
-
+Response
 ```json
 {
   "data": [
@@ -195,5 +193,18 @@ GET /api/v1/users?page=0&size=2
       "role": "USER"
     }
   ]
+}
+```
+____
+Request
+```http
+POST /api/v1/reservations?lang=ru
+```
+Response
+```json
+{
+    "userEmail": "odd8@ya.ru",
+    "hotelName": "Plaza",
+    "roomNumber": 35
 }
 ```

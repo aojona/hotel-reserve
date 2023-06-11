@@ -8,6 +8,8 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import static ru.kirill.hotelreserve.enums.UserRole.ADMIN;
+
 @Configuration
 @SecurityScheme(
         type = SecuritySchemeType.HTTP,
@@ -21,7 +23,7 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeHttpRequests(config -> config
-                        .requestMatchers("/api/**").permitAll()
+                        .requestMatchers("/api/**").hasAuthority(ADMIN.getAuthority())
                         .anyRequest().permitAll()
                 )
                 .httpBasic();

@@ -17,7 +17,6 @@ public enum LayerType {
         public void logging(MethodInvocation invocation) {
             RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
             HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(requestAttributes)).getRequest();
-
             log.info(
                     "Class: {}, request: {} {}, args: {}",
                     getClassName(invocation),
