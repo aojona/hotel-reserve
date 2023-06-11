@@ -10,7 +10,7 @@ spring:
   mail:
     host: smtp.yandex.ru
     username: misotoy@yandex.ru
-    password: Oddkirill10
+    password: hyfpoz-dezqe4-zypJes
     properties:
       mail.transport.protocol: smtp
       mail.smtp.auth: true

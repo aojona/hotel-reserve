@@ -4,10 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.web.servlet.LocaleResolver;
-import ru.kirill.hotelreserve.dto.HotelDto;
-import ru.kirill.hotelreserve.dto.ReservationDto;
-import ru.kirill.hotelreserve.dto.RoomDto;
-import ru.kirill.hotelreserve.dto.UserResponse;
+import ru.kirill.hotelreserve.dto.*;
 import ru.kirill.hotelreserve.listener.CreateUpdateEvent;
 
 import java.util.Arrays;
@@ -61,6 +58,19 @@ public enum SourceType {
             Locale locale = localeResolver.resolveLocale(event.getRequest());
             Object[] messageArguments = new Object[]{source.getHotelName(), source.getNumber()};
             setMessageText(event, messageSource, message, messageArguments, locale, "room");
+        }
+    },
+    HOTEL_RESERVATION(HotelReservationDto.class) {
+        @Override
+        public void setMessage(CreateUpdateEvent<?> event, MessageSource messageSource,
+                               LocaleResolver localeResolver, SimpleMailMessage message) {
+            HotelReservationDto source = (HotelReservationDto) event.getSource();
+            String emailDestination = source.getUserEmail();
+            message.setTo(source.getUserEmail());
+            Locale locale = localeResolver.resolveLocale(event.getRequest());
+            Object[] messageArguments = new Object[]{source.getHotelName(), ""};
+            setMessageText(event, messageSource, message, messageArguments, locale, "reservation");
+            logReservation(emailDestination);
         }
     };
 
