@@ -1,7 +1,7 @@
 # Hotel reserve
 
 Данный проект представляет собой REST сервис на языке Java для бронирования отелей 
-с автоматической отправкой сообщений на электронную почту с поддержкой интернационализации
+с автоматической отправкой сообщений на электронную почту и поддержкой интернационализации
 
 ## Стек используемых технологий
 
@@ -26,7 +26,7 @@ docker run --name hotel-database -e POSTGRES_PASSWORD=pass -p 5432:5432 -d postg
 ```
 3. Перейти на страницу с интерактивной документацией `localhost:8080/swagger-ui.html`
 
-4. Пройти Basic аутентификацию c username `swift@gmail.com` и password `1234`
+4. Пройти аутентификацию c username `swift@gmail.com` и password `1234`
 <img src="https://github.com/aojona/hotel-reserve/blob/main/data/auth.svg" width="140">
 
 ## База данных
@@ -208,3 +208,6 @@ Response
     "roomNumber": 35
 }
 ```
+Email notification
+
+<img src="https://github.com/aojona/hotel-reserve/blob/main/data/reservation.png" width="440">
