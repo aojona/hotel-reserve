@@ -31,7 +31,7 @@ docker run --name hotel-database -e POSTGRES_PASSWORD=pass -p 5432:5432 -d postg
 
 ## База данных
 
-![diagram](https://github.com/aojona/hotel-reserve/blob/main/data/diagram.svg)
+![diagram](https://github.com/aojona/hotel-reserve/blob/main/data/database.svg)
 
 ### Эндпоинты
 
