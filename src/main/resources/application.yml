@@ -7,6 +7,14 @@ spring:
   jpa:
     properties.hibernate:
       dialect: org.hibernate.dialect.PostgreSQLDialect
+  mail:
+    host: smtp.yandex.ru
+    username: misotoy@yandex.ru
+    password: Oddkirill10
+    properties:
+      mail.transport.protocol: smtp
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
 
 server:
   error:

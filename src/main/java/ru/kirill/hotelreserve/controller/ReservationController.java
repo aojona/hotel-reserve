@@ -2,6 +2,7 @@ package ru.kirill.hotelreserve.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,8 +24,8 @@ public class ReservationController extends CRUDController<Reservation,Reservatio
 
     private final ReservationService reservationService;
 
-    public ReservationController(ReservationService reservationService) {
-        super(reservationService);
+    public ReservationController(ReservationService reservationService, ApplicationEventPublisher eventPublisher) {
+        super(reservationService, eventPublisher);
         this.reservationService = reservationService;
     }
 

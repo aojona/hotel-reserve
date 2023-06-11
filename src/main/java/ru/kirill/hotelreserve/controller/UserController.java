@@ -1,6 +1,7 @@
 package ru.kirill.hotelreserve.controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.kirill.hotelreserve.dto.UserRequest;
@@ -17,7 +18,7 @@ import static ru.kirill.hotelreserve.enums.LayerType.CONTROLLER;
 @RequestMapping("/api/v1/users")
 public class UserController extends CRUDController<User,UserRequest,UserResponse,Long> {
 
-    public UserController(UserService userService) {
-        super(userService);
+    public UserController(UserService userService, ApplicationEventPublisher eventPublisher) {
+        super(userService, eventPublisher);
     }
 }
