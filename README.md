@@ -172,6 +172,7 @@ docker run --name hotel-database -e POSTGRES_PASSWORD=pass -p 5432:5432 -d postg
 Prefix `api/v1` is required for REST API
 
 ### Примеры запросов
+
 Request
 ```http
 GET /api/v1/users?page=0&size=2
@@ -200,7 +201,7 @@ Request
 ```http
 POST /api/v1/reservations?lang=ru
 ```
-Response
+
 ```json
 {
     "userEmail": "odd8@ya.ru",
