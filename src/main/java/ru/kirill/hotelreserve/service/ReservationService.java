@@ -46,7 +46,6 @@ public class ReservationService extends CRUDService<Reservation,ReservationDto,R
 
     @Transactional
     public ReservationDto reserveFreeRoom(HotelReservationDto hotelReservationDto) {
-
         Room room = findFreeRoomByHotelName(hotelReservationDto.getHotelName());
         reserveRoom(room);
         return super.create(createReservationDto(hotelReservationDto, room));

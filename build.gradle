@@ -8,7 +8,7 @@ plugins {
 apply from: 'version.gradle'
 
 group = 'ru.kirill'
-version = '0.0.1-SNAPSHOT'
+version = '0.1.0-SNAPSHOT'
 sourceCompatibility = '17'
 
 configurations {

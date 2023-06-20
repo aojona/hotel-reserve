@@ -42,7 +42,7 @@ public abstract class CRUDController<E,D1,D2,ID extends Number> {
 
     @PostMapping
     @Operation(summary = "Создать")
-    @Parameter(name = "lang", allowEmptyValue = true, description = "en(default)/ru")
+    @Parameter(name = "lang", allowEmptyValue = true, description = "en/ru")
     public ResponseEntity<D2> create(@RequestBody @Valid D1 requestDto, BindingResult bindingResult,
                                      HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
@@ -63,7 +63,7 @@ public abstract class CRUDController<E,D1,D2,ID extends Number> {
 
     @PutMapping("/{id}")
     @Operation(summary = "Обновить по id")
-    @Parameter(name = "lang", allowEmptyValue = true, description = "en(default)/ru")
+    @Parameter(name = "lang", allowEmptyValue = true, description = "en/ru")
     public ResponseEntity<D2> update(@PathVariable ID id, @RequestBody @Valid D1 requestDto, BindingResult bindingResult,
                                      HttpServletRequest request) {
         if (bindingResult.hasErrors()) {

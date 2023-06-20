@@ -36,7 +36,7 @@ public class ReservationController extends CRUDController<Reservation,Reservatio
 
     @PostMapping("/reserve")
     @Operation(summary = "Забронить любой свободный номер")
-    @Parameter(name = "lang", allowEmptyValue = true, description = "en(default)/ru")
+    @Parameter(name = "lang", allowEmptyValue = true, description = "en/ru")
     public ReservationDto reserveFreeRoom(HotelReservationDto hotelReservationDto, HttpServletRequest request) {
         ReservationDto reservationDto = reservationService.reserveFreeRoom(hotelReservationDto);
         eventPublisher.publishEvent(new CreateUpdateEvent<>(hotelReservationDto, request, "create"));
